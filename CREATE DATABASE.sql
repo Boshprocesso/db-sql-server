@@ -1,5 +1,7 @@
 -- Criando o banco de dados e utilizando
 -- O esquema permanecerá o padrão dbo
+DROP DATABASE IF EXISTS BOSHBENEFICIO
+GO
 
 CREATE DATABASE BOSHBENEFICIO
 GO
@@ -44,14 +46,8 @@ GO
 
 CREATE TABLE Beneficio(
 	idBeneficio			UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-	descricaoBeneficio  VARCHAR(100) NOT NULL,
-	idIlha				UNIQUEIDENTIFIER
+	descricaoBeneficio  VARCHAR(100) NOT NULL
 )
-GO
-
-ALTER TABLE Beneficio ADD CONSTRAINT FK_Beneficio_Ilha
- FOREIGN KEY (idIlha)
- REFERENCES Ilha (idIlha)
 GO
 
 -- Criação tabela de evento-benefício
@@ -71,11 +67,29 @@ ALTER TABLE EventoBeneficio ADD CONSTRAINT FK_EventoBeneficio_Beneficio
  REFERENCES Beneficio (idBeneficio)
 GO
 
+-- Criação tabela de ilha-benefício
+CREATE TABLE ilhaBeneficio(
+	idIlha	UNIQUEIDENTIFIER,
+	idBeneficio UNIQUEIDENTIFIER,
+)
+GO
+
+ALTER TABLE ilhaBeneficio ADD CONSTRAINT FK_ilhaBeneficio_Ilha
+ FOREIGN KEY (idIlha)
+ REFERENCES Ilha (idIlha)
+GO
+
+ALTER TABLE ilhaBeneficio ADD CONSTRAINT FK_ilhaBeneficio_Beneficio
+ FOREIGN KEY (idBeneficio)
+ REFERENCES Beneficio (idBeneficio)
+GO
+
 -- Criação tabela de Terceiro
 CREATE TABLE Terceiro(
 	idTerceiro		UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	nome			VARCHAR(50) NOT NULL,
-	identificacao   VARCHAR(25) NOT NULL UNIQUE
+	identificacao   VARCHAR(25) NOT NULL UNIQUE,
+	dataIndicacao	DATETIME,
 )
 GO
 
@@ -87,19 +101,15 @@ CREATE TABLE Beneficiario(
 	edv					INT DEFAULT 0,
 	cpf					VARCHAR(14) DEFAULT '-',
 	unidade				VARCHAR(10),
-	dataInclusao		DATE,
-	idTerceiro		    UNIQUEIDENTIFIER
+	dataInclusao		DATETIME,
+	responsavelInclusao VARCHAR(60)
 )
-GO
-
-ALTER TABLE Beneficiario ADD CONSTRAINT FK_Beneficiario_Terceiro
- FOREIGN KEY (idTerceiro)
- REFERENCES Terceiro (idTerceiro)
 GO
 
 -- Criação tabela Beneficiario x Beneficio x Terceiro
 CREATE TABLE BeneficiarioBeneficio(
 	idBeneficiario		UNIQUEIDENTIFIER,
+	idBeneficio		UNIQUEIDENTIFIER,
 	idTerceiro			UNIQUEIDENTIFIER,
 	entregue			CHAR(1) DEFAULT 0,
 	quantidade			INT
@@ -109,6 +119,11 @@ GO
 ALTER TABLE BeneficiarioBeneficio ADD CONSTRAINT FK_BeneficiarioBeneficio_Beneficiario
  FOREIGN KEY (idBeneficiario)
  REFERENCES Beneficiario (idBeneficiario)
+GO
+
+ALTER TABLE BeneficiarioBeneficio ADD CONSTRAINT FK_BeneficiarioBeneficio_Beneficio
+ FOREIGN KEY (idBeneficio)
+ REFERENCES Beneficio (idBeneficio)
 GO
 
 ALTER TABLE BeneficiarioBeneficio ADD CONSTRAINT FK_BeneficiarioBeneficio_Terceiro
