@@ -100,7 +100,7 @@ CREATE TABLE Beneficiario(
 	dataNascimento		DATE,
 	edv					INT DEFAULT 0,
 	cpf					VARCHAR(14) DEFAULT '-',
-	unidade				VARCHAR(10),
+	unidade				VARCHAR(20),
 	dataInclusao		DATETIME,
 	responsavelInclusao VARCHAR(60)
 )
