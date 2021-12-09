@@ -50,10 +50,6 @@ CREATE TABLE EventoBeneficio(
 )
 GO
 
-ALTER TABLE EventoBeneficio ADD CONSTRAINT PK_EventoBeneficio
- PRIMARY KEY (idEvento, idBeneficio)
-GO
-
 ALTER TABLE EventoBeneficio ADD CONSTRAINT FK_EventoBeneficio_Evento
  FOREIGN KEY (idEvento)
  REFERENCES Evento (idEvento)
@@ -92,10 +88,6 @@ CREATE TABLE EventoBeneficiario(
 )
 GO
 
-ALTER TABLE EventoBeneficiario ADD CONSTRAINT PK_EventoBeneficiario
- PRIMARY KEY (idEvento, idBeneficiario)
-GO
-
 ALTER TABLE EventoBeneficiario ADD CONSTRAINT FK_EventoBeneficiario_Evento
  FOREIGN KEY (idEvento)
  REFERENCES Evento (idEvento)
@@ -114,10 +106,6 @@ CREATE TABLE BeneficiarioBeneficio(
 	entregue			CHAR(1) DEFAULT 0,
 	quantidade			INT
 )
-GO
-
-ALTER TABLE BeneficiarioBeneficio ADD CONSTRAINT PK_BeneficiarioBeneficio
- PRIMARY KEY (idBeneficiario, idBeneficio)
 GO
 
 ALTER TABLE BeneficiarioBeneficio ADD CONSTRAINT FK_BeneficiarioBeneficio_Beneficiario
