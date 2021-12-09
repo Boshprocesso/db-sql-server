@@ -73,6 +73,11 @@ values
 	('ALAN CLEITON NOVINSKI DE CARVALHO', '12/08/1991', '070.858.949-97', 243, 'CtP/CTG2', getdate(), 'Import Process')	
 go
 
+insert into EventoBeneficiario(idEvento, idBeneficiario)
+	SELECT E.idEvento, B.idBeneficiario FROM
+	Evento AS E, Beneficiario AS B
+go
+
 insert into BeneficiarioBeneficio (idBeneficiario, idBeneficio, quantidade)
 	SELECT Ba.idBeneficiario, Bi.idBeneficio, 1 as quantidade FROM
 	Beneficio AS Bi, Beneficiario AS Ba
@@ -142,4 +147,16 @@ values
 	(1, (SELECT idBeneficiario FROM Beneficiario WHERE cpf = '040.035.839-57'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'Brinquedos 5F')),
 	(1, (SELECT idBeneficiario FROM Beneficiario WHERE cpf = '033.256.029-59'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'Brinquedos 7F')),
 	(1, (SELECT idBeneficiario FROM Beneficiario WHERE cpf = '071.773.909-01'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'Brinquedos 4F'))
+go
+
+insert into Terceiro(nome, identificacao, dataIndicacao)
+	select nomeCompleto, cpf, GETDATE() from Beneficiario
+	where edv < 205
+go
+
+insert into Terceiro(nome, identificacao, dataIndicacao)
+values
+	('fulano', '123.456.789-10', GETDATE()),
+	('ciclano', '109.876.543-21', GETDATE()),
+	('beltrano', '321.654.987-01', GETDATE())
 go

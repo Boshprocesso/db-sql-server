@@ -86,6 +86,26 @@ CREATE TABLE Beneficiario(
 )
 GO
 
+CREATE TABLE EventoBeneficiario(
+	idEvento	UNIQUEIDENTIFIER NOT NULL,
+	idBeneficiario UNIQUEIDENTIFIER NOT NULL,
+)
+GO
+
+ALTER TABLE EventoBeneficiario ADD CONSTRAINT PK_EventoBeneficiario
+ PRIMARY KEY (idEvento, idBeneficiario)
+GO
+
+ALTER TABLE EventoBeneficiario ADD CONSTRAINT FK_EventoBeneficiario_Evento
+ FOREIGN KEY (idEvento)
+ REFERENCES Evento (idEvento)
+GO
+
+ALTER TABLE EventoBeneficiario ADD CONSTRAINT FK_EventoBeneficiario_Beneficiario
+ FOREIGN KEY (idBeneficiario)
+ REFERENCES Beneficiario (idBeneficiario)
+GO
+
 -- Criação tabela Beneficiario x Beneficio x Terceiro
 CREATE TABLE BeneficiarioBeneficio(
 	idBeneficiario		UNIQUEIDENTIFIER NOT NULL,
