@@ -35,6 +35,13 @@ CREATE TABLE Evento(
 )
 GO
 
+-- Criação tabela Ilha
+CREATE TABLE Ilha(
+	idIlha				UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	descricao			VARCHAR(25) DEFAULT '-'
+)
+GO
+
 -- Criação tabela de benefício
 
 CREATE TABLE Beneficio(
@@ -56,6 +63,23 @@ ALTER TABLE EventoBeneficio ADD CONSTRAINT FK_EventoBeneficio_Evento
 GO
 
 ALTER TABLE EventoBeneficio ADD CONSTRAINT FK_EventoBeneficio_Beneficio
+ FOREIGN KEY (idBeneficio)
+ REFERENCES Beneficio (idBeneficio)
+GO
+
+-- Criação tabela de ilha-benefício
+CREATE TABLE ilhaBeneficio(
+	idIlha	UNIQUEIDENTIFIER,
+	idBeneficio UNIQUEIDENTIFIER,
+)
+GO
+
+ALTER TABLE ilhaBeneficio ADD CONSTRAINT FK_ilhaBeneficio_Ilha
+ FOREIGN KEY (idIlha)
+ REFERENCES Ilha (idIlha)
+GO
+
+ALTER TABLE ilhaBeneficio ADD CONSTRAINT FK_ilhaBeneficio_Beneficio
  FOREIGN KEY (idBeneficio)
  REFERENCES Beneficio (idBeneficio)
 GO

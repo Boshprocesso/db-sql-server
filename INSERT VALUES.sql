@@ -3,6 +3,15 @@ values
 	('evento final do ano', 'Evento do final do ano', '2021-12-17', '2021-12-19')
 go
 
+insert into Ilha(descricao)
+values
+	('Ilha 1'),
+	('Ilha 2'),
+	('Ilha 3'),
+	('Ilha 4'),
+	('Ilha 5')
+go
+
 insert into Beneficio (descricaoBeneficio)
 values
 	('CESTA SECA'), ('CESTA FRIA'), ('PRESENTE BOSCH'),
@@ -12,6 +21,32 @@ values
 	('Brinquedos 6F'), ('Brinquedos 2M'), ('Brinquedos 1F'), ('Brinquedos 3M'), ('Brinquedos 11F'),
 	('Brinquedos 8F'), ('Brinquedos 10M'), ('Brinquedos 9F'), ('Brinquedos 0M'), ('Brinquedos 9M'),
 	('Brinquedos 4F'), ('Brinquedos 0F'), ('Brinquedos 6M'), ('Brinquedos 12F')
+go
+
+insert into ilhaBeneficio (idIlha, idBeneficio)
+values
+	((SELECT idIlha FROM Ilha WHERE descricao = 'Ilha 1'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'CESTA SECA')),
+	((SELECT idIlha FROM Ilha WHERE descricao = 'Ilha 2'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'CESTA FRIA')),
+	((SELECT idIlha FROM Ilha WHERE descricao = 'Ilha 3'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'PRESENTE BOSCH'))
+go
+
+
+insert into ilhaBeneficio (idIlha, idBeneficio)
+	SELECT I.idIlha, B.idBeneficio FROM
+	Beneficio AS B, Ilha AS I
+	WHERE 
+	B.descricaoBeneficio LIKE 'Material Escolar%'
+	AND
+	I.descricao = 'Ilha 4'
+go
+
+insert into ilhaBeneficio (idIlha, idBeneficio)
+	SELECT I.idIlha, B.idBeneficio FROM
+	Beneficio AS B, Ilha AS I
+	WHERE 
+	B.descricaoBeneficio LIKE 'Brinquedos%'
+	AND
+	I.descricao = 'Ilha 5'
 go
 
 insert into EventoBeneficio (idEvento, idBeneficio)
