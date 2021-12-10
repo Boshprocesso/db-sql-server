@@ -184,6 +184,11 @@ values
 	(1, (SELECT idBeneficiario FROM Beneficiario WHERE cpf = '071.773.909-01'), (SELECT idBeneficio FROM Beneficio WHERE descricaoBeneficio = 'Brinquedos 4F'))
 go
 
+insert into EventoBeneficiario(idEvento, idBeneficiario)
+	select E.idEvento, B.idBeneficiario FROM
+	Evento as E, Beneficiario as B
+go
+
 insert into Terceiro(nome, identificacao, dataIndicacao)
 	select nomeCompleto, cpf, GETDATE() from Beneficiario
 	where edv < 205
