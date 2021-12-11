@@ -26,34 +26,34 @@ END
 GO
 
 CREATE TABLE Evento(
-	idEvento			UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-	nomeEvento			VARCHAR(30) NOT NULL,
+	idEvento		UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	nomeEvento		VARCHAR(30) NOT NULL,
 	descricaoEvento		VARCHAR(100),
-	dataInicio			DATE NOT NULL,
-	dataTermino			DATE NOT NULL,
-	inativo				AS dbo.validaSeAtivo(dataTermino)
+	dataInicio		DATE NOT NULL,
+	dataTermino		DATE NOT NULL,
+	inativo			AS dbo.validaSeAtivo(dataTermino)
 )
 GO
 
 -- Criação tabela Ilha
 CREATE TABLE Ilha(
-	idIlha				UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-	descricao			VARCHAR(25) DEFAULT '-'
+	idIlha			UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	descricao		VARCHAR(25) DEFAULT '-'
 )
 GO
 
 -- Criação tabela de benefício
 
 CREATE TABLE Beneficio(
-	idBeneficio			UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-	descricaoBeneficio  VARCHAR(100) NOT NULL
+	idBeneficio		UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	descricaoBeneficio  	VARCHAR(100) NOT NULL
 )
 GO
 
 -- Criação tabela de evento-benefício
 CREATE TABLE EventoBeneficio(
-	idEvento	UNIQUEIDENTIFIER NOT NULL,
-	idBeneficio UNIQUEIDENTIFIER NOT NULL,
+	idEvento		UNIQUEIDENTIFIER NOT NULL,
+	idBeneficio 		UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -69,8 +69,8 @@ GO
 
 -- Criação tabela de ilha-benefício
 CREATE TABLE ilhaBeneficio(
-	idIlha	UNIQUEIDENTIFIER,
-	idBeneficio UNIQUEIDENTIFIER,
+	idIlha			UNIQUEIDENTIFIER,
+	idBeneficio 		UNIQUEIDENTIFIER,
 )
 GO
 
@@ -88,27 +88,27 @@ GO
 CREATE TABLE Terceiro(
 	idTerceiro		UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	nome			VARCHAR(50) NOT NULL,
-	identificacao   VARCHAR(25) NOT NULL UNIQUE,
-	dataIndicacao	DATETIME,
+	identificacao   	VARCHAR(25) NOT NULL UNIQUE,
+	dataIndicacao		DATETIME
 )
 GO
 
 -- Criação tabela de Beneficiario
 CREATE TABLE Beneficiario(
-	idBeneficiario      UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	idBeneficiario      	UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
 	nomeCompleto		VARCHAR(50) NOT NULL,
 	dataNascimento		DATE,
-	edv					INT DEFAULT 0,
-	cpf					VARCHAR(14) DEFAULT '-',
-	unidade				VARCHAR(20),
+	edv			INT DEFAULT 0,
+	cpf			VARCHAR(14) DEFAULT '-',
+	unidade			VARCHAR(20),
 	dataInclusao		DATETIME,
-	responsavelInclusao VARCHAR(60)
+	responsavelInclusao	VARCHAR(60)
 )
 GO
 
 CREATE TABLE EventoBeneficiario(
-	idEvento	UNIQUEIDENTIFIER NOT NULL,
-	idBeneficiario UNIQUEIDENTIFIER NOT NULL,
+	idEvento		UNIQUEIDENTIFIER NOT NULL,
+	idBeneficiario 		UNIQUEIDENTIFIER NOT NULL,
 )
 GO
 
@@ -126,9 +126,9 @@ GO
 CREATE TABLE BeneficiarioBeneficio(
 	idBeneficiario		UNIQUEIDENTIFIER NOT NULL,
 	idBeneficio		UNIQUEIDENTIFIER NOT NULL,
-	idTerceiro			UNIQUEIDENTIFIER,
-	entregue			CHAR(1) DEFAULT 0,
-	quantidade			INT
+	idTerceiro		UNIQUEIDENTIFIER,
+	entregue		CHAR(1) DEFAULT 0,
+	quantidade		INT
 )
 GO
 
